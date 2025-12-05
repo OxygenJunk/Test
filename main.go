@@ -16,7 +16,7 @@ func main() {
 	}
 
 	scanner := bufio.NewScanner(file)
-	firstCol := []int{}s
+	firstCol := []int{}
 	secondCol := []int{}
 	for scanner.Scan() {
 		line := scanner.Text()
