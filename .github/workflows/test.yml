@@ -1,0 +1,14 @@
+name: Workflow
+on: [workflow_dispatch, push]
+jobs:
+  test: # Job ID
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install GO
+        uses: actions/setup-go@v6
+        with:
+          go-version: '1.23'
+      - name: Run app
+        run: go run .
