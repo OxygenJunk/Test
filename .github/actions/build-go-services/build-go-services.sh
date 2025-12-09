@@ -12,7 +12,7 @@ while IFS= read -r line; do
     if [[ $? -ne 0 ]]; then # -ne znaci not equal to -- 0 je valjda success za go build uvijek
     #   payload='{"text":"'$SERVICE_NAME' Go build failed with error: '$output'"}'
     #   curl -X POST -H 'Content-type: application/json' --data "$payload" $SLACK_WEBHOOK_URL
-      echo "Build failed - ${SERVICE_NAME} - ${output}"
+      # echo "Build failed - ${SERVICE_NAME} - ${output}"
       echo ${$?}
       exit $?
     else
