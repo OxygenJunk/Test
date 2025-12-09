@@ -5,10 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - name: Configure git for private modules
-        env:
-          TOKEN: ${{secrets.CI_PAT}}
-        run: got config --global url."https://oxygenjunk-test:${TOKEN}@github.com".insteadOf "https://github.com"
       - name: Build Go
         uses: ./.github/actions/build-go-services
   create-image:
