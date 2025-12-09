@@ -13,7 +13,7 @@ while IFS= read -r line; do
     #   payload='{"text":"'$SERVICE_NAME' Go build failed with error: '$output'"}'
     #   curl -X POST -H 'Content-type: application/json' --data "$payload" $SLACK_WEBHOOK_URL
       echo "Build failed - ${SERVICE_NAME} - ${output}"
-      exit 2297
+      exit 1
     else
       echo "Build succeeded - ${SERVICE_NAME}"
     fi
