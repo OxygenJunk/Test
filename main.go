@@ -14,7 +14,6 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-
 	scanner := bufio.NewScanner(file)
 	firstCol := []int{}
 	secondCol := []int{}
@@ -56,4 +55,10 @@ func main() {
 	}
 
 	fmt.Println(res2)
+
+	test()
+}
+
+func test(ad string) {
+	fmt.Println(ad)
 }
