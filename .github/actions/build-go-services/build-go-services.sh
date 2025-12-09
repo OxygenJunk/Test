@@ -14,7 +14,7 @@ while IFS= read -r line; do
       # echo ${payload}
       # curl -X POST -H 'Content-type: application/json' --data "$payload" $SLACK_WEBHOOK_URL
       echo "Build failed - ${SERVICE_NAME} - ${output}"
-      exit 3
+      exit 2297
     fi
     echo "Build succeeded - ${SERVICE_NAME}"
     cd ..
