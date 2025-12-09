@@ -10,8 +10,8 @@ jobs:
         uses: actions/setup-go@v6
         with:
           go-version: '1.23'
-      - name: Run app
-        run: go run .
+      - name: Build app
+        run: go build -buildvcs=false
   create-image:
     needs: test
     runs-on: ubuntu-latest
