@@ -7,9 +7,12 @@ jobs:
       - uses: actions/checkout@v5
       - name: Build Go
         uses: ./.github/actions/build-go-services
-  create-image:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create Image
+      - name: Build docker images
+        if: ${{success()}}
         run: echo "Creating..."
+  # create-image:
+  #   needs: test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Create Image
+  #       run: echo "Creating..."
