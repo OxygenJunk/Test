@@ -1,0 +1,17 @@
+name: 'Build Go Service'
+description: 'Builds Go service'
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-go@v5
+      with:
+        go-version: '1.25.3'
+        cache: true
+    - name: Install freetds
+      run: sudo apt-get install freetds-dev
+      shell: bash
+    - run: ${{ github.action_path }}/build-go-services.sh
+      shell: bash
+      working-directory: ${{ github.workspace }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ inputs.slack-webhook-url }}

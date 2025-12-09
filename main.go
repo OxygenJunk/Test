@@ -55,10 +55,4 @@ func main() {
 	}
 
 	fmt.Println(res2)
-
-	test()
-}
-
-func test(ad string) {
-	fmt.Println(ad)
 }
