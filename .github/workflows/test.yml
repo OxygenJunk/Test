@@ -8,6 +8,7 @@ jobs:
       - name: Build Go
         uses: ./.github/actions/build-go-services
       - name: Build docker images
+        if: ${{!success()}}
         run: echo "Creating..."
   # create-image:
   #   needs: test
