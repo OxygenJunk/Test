@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - name: Get code
+      - name: Build Go
         uses: ./.github/actions/build-go-services
   create-image:
     needs: test
