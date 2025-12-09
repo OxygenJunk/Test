@@ -1,6 +1,5 @@
 CMD_DIRS=$(find . -name "cmd" -type d)
 WD=$(pwd)
-set -e
 while IFS= read -r line; do
   cd $line
   for d in */ ; do
