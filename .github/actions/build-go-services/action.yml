@@ -13,5 +13,3 @@ runs:
     - run: ${{ github.action_path }}/build-go-services.sh
       shell: bash
       working-directory: ${{ github.workspace }}
-      env:
-        SLACK_WEBHOOK_URL: ${{ inputs.slack-webhook-url }}
