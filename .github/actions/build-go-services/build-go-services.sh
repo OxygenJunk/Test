@@ -18,7 +18,7 @@ while IFS= read -r line; do
         jq -Rn \
         --arg service "$SERVICE_NAME" \
         --arg output "$output" \
-        '{text: "\($service) Go build failed with error: \($output)"} | @json'
+        '{text: ($service) + " Go build failed with error: " + $output)} | @json'
       )
       echo ${payload}
       echo "Build failed - ${SERVICE_NAME} - ${output}"
