@@ -29,6 +29,7 @@ while IFS= read -r line; do
     fi
     echo "Build succeeded - ${SERVICE_NAME}"
     file "$BUILD_DIR"/*
+    go version -m "$BUILD_DIR"/test/bin/first_puzzle
     cd ..
   done
   cd $WD
