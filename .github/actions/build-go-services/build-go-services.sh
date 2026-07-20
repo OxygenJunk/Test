@@ -8,6 +8,7 @@ while IFS= read -r line; do
     BUILD_DIR=$GITHUB_WORKSPACE/build/$SERVICE_NAME/bin
     mkdir -p $BUILD_DIR
     echo "${GOARCH}"
+    go env GOOS GOARCH
     output=$(go build -o $BUILD_DIR -buildvcs=false  . 2>&1) 
     # $? je exit status od zadnje komande sto je go build iznad
     if [[ $? -ne 0 ]]; then # -ne znaci not equal to -- 0 je valjda success za go build uvijek
@@ -26,6 +27,7 @@ while IFS= read -r line; do
       exit 1
     fi
     echo "Build succeeded - ${SERVICE_NAME}"
+    file "$BUILD_DIR"/*
     cd ..
   done
   cd $WD
