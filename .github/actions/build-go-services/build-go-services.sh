@@ -1,7 +1,5 @@
 CMD_DIRS=$(find . -name "cmd" -type d)
 WD=$(pwd)
-echo "START PWD=$(pwd)"
-ls
 while IFS= read -r line; do
   cd $line
   for d in */ ; do
@@ -10,14 +8,6 @@ while IFS= read -r line; do
     BUILD_DIR=$GITHUB_WORKSPACE/build/$SERVICE_NAME/bin
     mkdir -p $BUILD_DIR
     echo "${GOARCH}"
-    echo "PWD=$(pwd)"
-    printf '<%s>\n' "$CMD_DIRS"
-
-    echo "cd -> '$line'"
-    pwd
-
-    echo "cd -> '$d'"
-    pwd
     output=$(go build -o $BUILD_DIR -buildvcs=false  . 2>&1) 
     # $? je exit status od zadnje komande sto je go build iznad
     if [[ $? -ne 0 ]]; then # -ne znaci not equal to -- 0 je valjda success za go build uvijek
