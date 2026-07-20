@@ -1,5 +1,7 @@
 CMD_DIRS=$(find . -name "cmd" -type d)
 WD=$(pwd)
+echo "START PWD=$(pwd)"
+ls
 while IFS= read -r line; do
   cd $line
   for d in */ ; do
