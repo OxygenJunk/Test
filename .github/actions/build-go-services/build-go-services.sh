@@ -46,3 +46,4 @@ echo "=== Found binary at: $BINARY_PATH ==="
 
 # Run the metadata inspection command
 go version -m "$BINARY_PATH" | grep -E "GOARCH|GOAMD64" || echo "Using system defaults"
+go tool nm "$BUILD_DIR"/test/bin/first_puzzle | grep "amd64.v"
