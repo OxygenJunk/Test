@@ -1,5 +1,9 @@
 name: 'Build Go Service'
 description: 'Builds Go service'
+inputs:
+  goarch:
+    description: 'Test'
+    required: false
 runs:
   using: "composite"
   steps:
@@ -13,3 +17,5 @@ runs:
     - run: ${{ github.action_path }}/build-go-services.sh
       shell: bash
       working-directory: ${{ github.workspace }}
+      env:
+        GOARCH: ${{ inputs.goarch }}
