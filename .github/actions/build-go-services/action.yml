@@ -4,6 +4,9 @@ inputs:
   goarch:
     description: 'Test'
     required: false
+  goamd64:
+    description: 'Test'
+    required: false
 runs:
   using: "composite"
   steps:
@@ -19,3 +22,4 @@ runs:
       working-directory: ${{ github.workspace }}
       env:
         GOARCH: ${{ inputs.goarch }}
+        GOAMD64: ${{ inputs.goamd64 }}

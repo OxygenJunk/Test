@@ -9,6 +9,7 @@ while IFS= read -r line; do
     mkdir -p $BUILD_DIR
     echo "${GOARCH}"
     go env GOOS GOARCH GOAMD64
+    echo "${GOAMD64}"
     output=$(go build -o $BUILD_DIR -buildvcs=false  . 2>&1) 
     # $? je exit status od zadnje komande sto je go build iznad
     if [[ $? -ne 0 ]]; then # -ne znaci not equal to -- 0 je valjda success za go build uvijek
