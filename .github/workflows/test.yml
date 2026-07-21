@@ -6,6 +6,10 @@ on:
         description: 'Test 2'
         required: false
         type: string
+      include-services:
+        description: 'Test 2'
+        required: false
+        type: string
 
 jobs:
   test: # Job ID
@@ -16,6 +20,7 @@ jobs:
         uses: ./.github/actions/build-go-services
         with:
           goamd64: ${{ inputs.goamd64 }}
+          include-services: ${{ inputs.include-services }}
       - name: Build docker images
         run: echo "Creating..."
   # create-image:

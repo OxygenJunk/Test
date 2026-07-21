@@ -1,9 +1,6 @@
-if [[ -n "$GOARCH" && "$GOARCH" != "amd64" ]]; then
-  echo "Invalid GOARCH='$GOARCH'." >&2
-  exit 1
-fi
 CMD_DIRS=$(find . -name "cmd" -type d)
 WD=$(pwd)
+$serviceArray = $include-services.Split(',').Trim()
 while IFS= read -r line; do
   cd $line
   for d in */ ; do
@@ -14,7 +11,11 @@ while IFS= read -r line; do
     echo "${GOARCH}"
     go env GOOS GOARCH GOAMD64 CGO_ENABLED
     echo "${GOAMD64}"
-    output=$(go build -o $BUILD_DIR -buildvcs=false  . 2>&1) 
+    $goamd64_version = 'v1'
+    if ($serviceArray -contains $SERVICE_NAME){
+      $goamd64_version = $spec_goamd64
+    }
+    output=$(GOAMD64=$goamd64_version go build -o $BUILD_DIR -buildvcs=false  . 2>&1) 
     # $? je exit status od zadnje komande sto je go build iznad
     if [[ $? -ne 0 ]]; then # -ne znaci not equal to -- 0 je valjda success za go build uvijek
       payload2='{"text":"'$SERVICE_NAME' Go build failed with error: '$output'"}'

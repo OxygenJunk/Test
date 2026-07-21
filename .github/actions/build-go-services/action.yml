@@ -4,6 +4,9 @@ inputs:
   goamd64:
     description: 'Test'
     required: false
+  include-services:
+    description: 'Test'
+    required: false
 runs:
   using: "composite"
   steps:
@@ -17,3 +20,6 @@ runs:
     - run: ${{ github.action_path }}/build-go-services.sh
       shell: bash
       working-directory: ${{ github.workspace }}
+      env:
+        spec_goamd64: ${{ inputs.goamd64 }}
+        include-services: ${{ inputs.include-services }}
