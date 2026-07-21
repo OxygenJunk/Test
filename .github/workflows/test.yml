@@ -6,8 +6,8 @@ on:
         description: 'GOAMD64'
         required: false
         type: string
-      exclude-services:
-        description: 'exclude services'
+      goamd64-excluded-services:
+        description: ' goamd64-excluded-services'
         required: false
         type: string
 
@@ -20,7 +20,7 @@ jobs:
         uses: ./.github/actions/build-go-services
         with:
           goamd64: ${{ inputs.goamd64 }}
-          exclude-services: ${{ inputs.exclude-services }}
+          goamd64-excluded-services: ${{ inputs.goamd64-excluded-services }}
       - name: Build docker images
         run: echo "Creating..."
   # create-image:

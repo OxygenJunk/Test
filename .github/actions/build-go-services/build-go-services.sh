@@ -10,9 +10,10 @@ while IFS= read -r line; do
     echo "${GOARCH}"
     go env GOOS GOARCH GOAMD64 CGO_ENABLED
     echo "${GOAMD64}"
+    echo "excluded services ${GOAMD64_EXCLUDED_SERVICES}"
 
     SERVICE_GOAMD64="$GOAMD64"
-    if [[ -n "$EXCLUDE_SERVICES" && ",$EXCLUDE_SERVICES," == *",$SERVICE_NAME,"* ]]; then
+    if [[ -n "$GOAMD64_EXCLUDED_SERVICES" && ",$GOAMD64_EXCLUDED_SERVICES," == *",$SERVICE_NAME,"* ]]; then
       SERVICE_GOAMD64=""
     fi
 

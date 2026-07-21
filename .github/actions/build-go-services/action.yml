@@ -4,7 +4,7 @@ inputs:
   goamd64:
     description: 'Test'
     required: false
-  exclude-services:
+  goamd64-excluded-services:
     description: 'Test'
     required: false
 runs:
@@ -22,4 +22,4 @@ runs:
       working-directory: ${{ github.workspace }}
       env:
         GOAMD64: ${{ inputs.goamd64 }}
-        EXCLUDE_SERVICES: ${{ inputs.exclude-services }}
+        GOAMD64_EXCLUDED_SERVICES: ${{ inputs.goamd64-excluded-services }}
