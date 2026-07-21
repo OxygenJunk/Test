@@ -17,5 +17,3 @@ runs:
     - run: ${{ github.action_path }}/build-go-services.sh
       shell: bash
       working-directory: ${{ github.workspace }}
-      env:
-        GOAMD64: ${{ inputs.goamd64 }}
