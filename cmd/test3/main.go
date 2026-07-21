@@ -1,4 +1,4 @@
-package test3
+package main
 
 import "fmt"
 
