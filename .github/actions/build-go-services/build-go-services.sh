@@ -12,8 +12,10 @@ while IFS= read -r line; do
     echo "${GOAMD64}"
     echo "excluded services ${GOAMD64_EXCLUDED_SERVICES}"
 
+    CLEANED_EXCLUDED_SERVICES="${GOAMD64_EXCLUDED_SERVICES//[[:space:]]/}"
+
     SERVICE_GOAMD64="$GOAMD64"
-    if [[ -n "$GOAMD64_EXCLUDED_SERVICES" && ",$GOAMD64_EXCLUDED_SERVICES," == *",$SERVICE_NAME,"* ]]; then
+    if [[ -n "$CLEANED_EXCLUDED_SERVICES" && ",$CLEANED_EXCLUDED_SERVICES," == *",$SERVICE_NAME,"* ]]; then
       SERVICE_GOAMD64=""
     fi
 
