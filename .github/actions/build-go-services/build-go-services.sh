@@ -12,7 +12,7 @@ while IFS= read -r line; do
     echo "${GOAMD64}"
 
     SERVICE_GOAMD64="$GOAMD64"
-    if [[ -z "$EXCLUDE_SERVICES" ]] || [[ ",$EXCLUDE_SERVICES," == *",$SERVICE_NAME,"* ]]; then
+    if [[ -n "$EXCLUDE_SERVICES" && ",$EXCLUDE_SERVICES," == *",$SERVICE_NAME,"* ]]; then
       SERVICE_GOAMD64=""
     fi
 
