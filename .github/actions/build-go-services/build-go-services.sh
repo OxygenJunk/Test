@@ -1,3 +1,7 @@
+if [[ -n "$GOARCH" && "$GOARCH" != "amd64" ]]; then
+  echo "Invalid GOARCH='$GOARCH'." >&2
+  exit 1
+fi
 CMD_DIRS=$(find . -name "cmd" -type d)
 WD=$(pwd)
 while IFS= read -r line; do
