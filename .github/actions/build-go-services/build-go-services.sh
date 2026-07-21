@@ -7,14 +7,10 @@ while IFS= read -r line; do
     SERVICE_NAME=${d%?}
     BUILD_DIR=$GITHUB_WORKSPACE/build/$SERVICE_NAME/bin
     mkdir -p $BUILD_DIR
-    SERVICE_GOAMD64=""
-    if [[ -z "$INCLUDE_SERVICES" ]] || [[ ",$INCLUDE_SERVICES," == *",$SERVICE_NAME,"* ]]; then
-      SERVICE_GOAMD64="$spec_goamd64"
-    fi
-    # echo "${GOARCH}"
-    # go env GOOS GOARCH GOAMD64 CGO_ENABLED
-    # echo "${GOAMD64}"
-    output=$(GOAMD64="$SERVICE_GOAMD64" go build -o $BUILD_DIR -buildvcs=false  . 2>&1) 
+    echo "${GOARCH}"
+    go env GOOS GOARCH GOAMD64 CGO_ENABLED
+    echo "${GOAMD64}"
+    output=$(go build -o $BUILD_DIR -buildvcs=false  . 2>&1) 
     # $? je exit status od zadnje komande sto je go build iznad
     if [[ $? -ne 0 ]]; then # -ne znaci not equal to -- 0 je valjda success za go build uvijek
       payload2='{"text":"'$SERVICE_NAME' Go build failed with error: '$output'"}'
@@ -33,10 +29,20 @@ while IFS= read -r line; do
     fi
     echo "Build succeeded - ${SERVICE_NAME}"
     file "$BUILD_DIR"/*
-    BINARY_PATH=$(find "$BUILD_DIR" -type f -name "$SERVICE_NAME" | head -n 1)
-    go version -m "$BINARY_PATH" | grep -E "GOARCH|GOAMD64|CGO_ENABLED" || echo "Using system defaults"
-
     cd ..
   done
   cd $WD
 done <<< "$CMD_DIRS"
+
+# Dynamically find the 'first_puzzle' binary inside the build directory
+BINARY_PATH=$(find "$BUILD_DIR" -type f -name "first_puzzle" | head -n 1)
+
+if [ -z "$BINARY_PATH" ]; then
+  echo "Error: Could not find first_puzzle binary inside $BUILD_DIR" >&2
+  exit 1
+fi
+
+echo "=== Found binary at: $BINARY_PATH ==="
+
+# Run the metadata inspection command
+go version -m "$BINARY_PATH" | grep -E "GOARCH|GOAMD64|CGO_ENABLED" || echo "Using system defaults"
