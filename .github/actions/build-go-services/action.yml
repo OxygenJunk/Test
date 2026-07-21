@@ -21,4 +21,5 @@ runs:
       shell: bash
       working-directory: ${{ github.workspace }}
       env:
+        GOAMD64: ${{ inputs.goamd64 }}
         GOAMD64_EXCLUDED_SERVICES: ${{ inputs.goamd64-excluded-services }}

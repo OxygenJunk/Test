@@ -12,14 +12,14 @@ while IFS= read -r line; do
     echo "${GOAMD64}"
     echo "excluded services ${GOAMD64_EXCLUDED_SERVICES}"
 
-    # CLEANED_EXCLUDED_SERVICES="${GOAMD64_EXCLUDED_SERVICES//[[:space:]]/}"
+    CLEANED_EXCLUDED_SERVICES="${GOAMD64_EXCLUDED_SERVICES//[[:space:]]/}"
 
-    # SERVICE_GOAMD64="$GOAMD64"
-    # if [[ -n "$CLEANED_EXCLUDED_SERVICES" && ",$CLEANED_EXCLUDED_SERVICES," == *",$SERVICE_NAME,"* ]]; then
-    #   SERVICE_GOAMD64=""
-    # fi
+    SERVICE_GOAMD64="$GOAMD64"
+    if [[ -n "$CLEANED_EXCLUDED_SERVICES" && ",$CLEANED_EXCLUDED_SERVICES," == *",$SERVICE_NAME,"* ]]; then
+      SERVICE_GOAMD64=""
+    fi
 
-    output=$(go build -o $BUILD_DIR -buildvcs=false  . 2>&1) 
+    output=$(GOAMD64="$SERVICE_GOAMD64" go build -o $BUILD_DIR -buildvcs=false  . 2>&1) 
     # $? je exit status od zadnje komande sto je go build iznad
     if [[ $? -ne 0 ]]; then # -ne znaci not equal to -- 0 je valjda success za go build uvijek
       payload2='{"text":"'$SERVICE_NAME' Go build failed with error: '$output'"}'
