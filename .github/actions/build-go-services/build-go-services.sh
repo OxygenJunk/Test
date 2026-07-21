@@ -45,4 +45,4 @@ fi
 echo "=== Found binary at: $BINARY_PATH ==="
 
 # Run the metadata inspection command
-go version -m "$BINARY_PATH" | grep -E "GOARCH|GOAMD64" || echo "Using system defaults"
+go version -m "$BINARY_PATH" | grep -E "GOARCH|GOAMD64|CGO_ENABLED" || echo "Using system defaults"
