@@ -29,20 +29,31 @@ while IFS= read -r line; do
     fi
     echo "Build succeeded - ${SERVICE_NAME}"
     file "$BUILD_DIR"/*
+
+    # Dynamically find the 'SERVICE_NAME' binary inside the build directory
+    BINARY_PATH_PUZZLE=$(find "$BUILD_DIR" -type f -name "first_puzzle" | head -n 1)
+    BINARY_PATH_MAIN=$(find "$BUILD_DIR" -type f -name "main" | head -n 1)
+
+    if [ -z "$BINARY_PATH_PUZZLE" ]; then
+      echo "Error: Could not find first_puzzle binary inside $BUILD_DIR" >&2
+      exit 1
+    else
+      echo "=== Found binary at: $BINARY_PATH_PUZZLE ==="
+      # Run the metadata inspection command
+      go version -m "$BINARY_PATH_PUZZLE" | grep -E "GOARCH|GOAMD64|CGO_ENABLED" || echo "Using system defaults"
+    fi
+
+    if [ -z "$BINARY_PATH_MAIN" ]; then
+      echo "Error: Could not find first_puzzle binary inside $BUILD_DIR" >&2
+      exit 1
+    else
+      echo "=== Found binary at: $BINARY_PATH_MAIN ==="
+      # Run the metadata inspection command
+      go version -m "$BINARY_PATH_MAIN" | grep -E "GOARCH|GOAMD64|CGO_ENABLED" || echo "Using system defaults"
+    fi
+
+
     cd ..
   done
   cd $WD
 done <<< "$CMD_DIRS"
-
-# # Dynamically find the 'first_puzzle' binary inside the build directory
-# BINARY_PATH=$(find "$BUILD_DIR" -type f -name "first_puzzle" | head -n 1)
-
-# if [ -z "$BINARY_PATH" ]; then
-#   echo "Error: Could not find first_puzzle binary inside $BUILD_DIR" >&2
-#   exit 1
-# fi
-
-# echo "=== Found binary at: $BINARY_PATH ==="
-
-# # Run the metadata inspection command
-# go version -m "$BINARY_PATH" | grep -E "GOARCH|GOAMD64|CGO_ENABLED" || echo "Using system defaults"
