@@ -34,15 +34,15 @@ while IFS= read -r line; do
   cd $WD
 done <<< "$CMD_DIRS"
 
-# Dynamically find the 'first_puzzle' binary inside the build directory
-BINARY_PATH=$(find "$BUILD_DIR" -type f -name "first_puzzle" | head -n 1)
+# # Dynamically find the 'first_puzzle' binary inside the build directory
+# BINARY_PATH=$(find "$BUILD_DIR" -type f -name "first_puzzle" | head -n 1)
 
-if [ -z "$BINARY_PATH" ]; then
-  echo "Error: Could not find first_puzzle binary inside $BUILD_DIR" >&2
-  exit 1
-fi
+# if [ -z "$BINARY_PATH" ]; then
+#   echo "Error: Could not find first_puzzle binary inside $BUILD_DIR" >&2
+#   exit 1
+# fi
 
-echo "=== Found binary at: $BINARY_PATH ==="
+# echo "=== Found binary at: $BINARY_PATH ==="
 
-# Run the metadata inspection command
-go version -m "$BINARY_PATH" | grep -E "GOARCH|GOAMD64|CGO_ENABLED" || echo "Using system defaults"
+# # Run the metadata inspection command
+# go version -m "$BINARY_PATH" | grep -E "GOARCH|GOAMD64|CGO_ENABLED" || echo "Using system defaults"
