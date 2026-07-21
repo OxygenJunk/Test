@@ -8,13 +8,13 @@ while IFS= read -r line; do
     SERVICE_NAME=${d%?}
     BUILD_DIR=$GITHUB_WORKSPACE/build/$SERVICE_NAME/bin
     mkdir -p $BUILD_DIR
-    echo "${GOARCH}"
-    go env GOOS GOARCH GOAMD64 CGO_ENABLED
-    echo "${GOAMD64}"
     $goamd64_version = 'v1'
     if ($serviceArray -contains $SERVICE_NAME){
       $goamd64_version = $spec_goamd64
     }
+    # echo "${GOARCH}"
+    # go env GOOS GOARCH GOAMD64 CGO_ENABLED
+    # echo "${GOAMD64}"
     output=$(GOAMD64=$goamd64_version go build -o $BUILD_DIR -buildvcs=false  . 2>&1) 
     # $? je exit status od zadnje komande sto je go build iznad
     if [[ $? -ne 0 ]]; then # -ne znaci not equal to -- 0 je valjda success za go build uvijek
@@ -44,6 +44,20 @@ BINARY_PATH=$(find "$BUILD_DIR" -type f -name "first_puzzle" | head -n 1)
 
 if [ -z "$BINARY_PATH" ]; then
   echo "Error: Could not find first_puzzle binary inside $BUILD_DIR" >&2
+  exit 1
+fi
+
+echo "=== Found binary at: $BINARY_PATH ==="
+
+# Run the metadata inspection command
+go version -m "$BINARY_PATH" | grep -E "GOARCH|GOAMD64|CGO_ENABLED" || echo "Using system defaults"
+
+
+# Dynamically find the 'main' binary inside the build directory
+BINARY_PATH=$(find "$BUILD_DIR" -type f -name "main" | head -n 1)
+
+if [ -z "$BINARY_PATH" ]; then
+  echo "Error: Could not find main binary inside $BUILD_DIR" >&2
   exit 1
 fi
 
