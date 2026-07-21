@@ -22,4 +22,4 @@ runs:
       working-directory: ${{ github.workspace }}
       env:
         GOAMD64: ${{ inputs.goamd64 }}
-        exclude-services: ${{ inputs.exclude-services }}
+        EXCLUDE_SERVICES: ${{ inputs.exclude-services }}

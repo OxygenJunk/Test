@@ -10,7 +10,13 @@ while IFS= read -r line; do
     echo "${GOARCH}"
     go env GOOS GOARCH GOAMD64 CGO_ENABLED
     echo "${GOAMD64}"
-    output=$(go build -o $BUILD_DIR -buildvcs=false  . 2>&1) 
+
+    SERVICE_GOAMD64="$GOAMD64"
+    if [[ -z "$EXCLUDE_SERVICES" ]] || [[ ",$EXCLUDE_SERVICES," == *",$SERVICE_NAME,"* ]]; then
+      SERVICE_GOAMD64=""
+    fi
+
+    output=$(GOAMD64="$SERVICE_GOAMD64" go build -o $BUILD_DIR -buildvcs=false  . 2>&1) 
     # $? je exit status od zadnje komande sto je go build iznad
     if [[ $? -ne 0 ]]; then # -ne znaci not equal to -- 0 je valjda success za go build uvijek
       payload2='{"text":"'$SERVICE_NAME' Go build failed with error: '$output'"}'
@@ -49,7 +55,6 @@ while IFS= read -r line; do
       # Run the metadata inspection command
       go version -m "$BINARY_PATH_MAIN" | grep -E "GOARCH|GOAMD64|CGO_ENABLED" || echo "Using system defaults"
     fi
-
 
     cd ..
   done
