@@ -2,10 +2,6 @@ name: Workflow
 on: 
   workflow_dispatch:
     inputs:
-      goarch:
-        description: 'Test'
-        required: false
-        type: string
       goamd64:
         description: 'Test 2'
         required: false
@@ -19,7 +15,6 @@ jobs:
       - name: Build Go
         uses: ./.github/actions/build-go-services
         with:
-          goarch: ${{ inputs.goarch }}
           goamd64: ${{ inputs.goamd64 }}
       - name: Build docker images
         run: echo "Creating..."

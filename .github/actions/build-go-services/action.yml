@@ -1,9 +1,6 @@
 name: 'Build Go Service'
 description: 'Builds Go service'
 inputs:
-  goarch:
-    description: 'Test'
-    required: false
   goamd64:
     description: 'Test'
     required: false
@@ -21,5 +18,4 @@ runs:
       shell: bash
       working-directory: ${{ github.workspace }}
       env:
-        GOARCH: ${{ inputs.goarch }}
         GOAMD64: ${{ inputs.goamd64 }}
