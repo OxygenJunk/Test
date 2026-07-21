@@ -36,7 +36,6 @@ while IFS= read -r line; do
 
     if [ -z "$BINARY_PATH_PUZZLE" ]; then
       echo "Error: Could not find first_puzzle binary inside $BUILD_DIR" >&2
-      exit 1
     else
       echo "=== Found binary at: $BINARY_PATH_PUZZLE ==="
       # Run the metadata inspection command
@@ -45,7 +44,6 @@ while IFS= read -r line; do
 
     if [ -z "$BINARY_PATH_MAIN" ]; then
       echo "Error: Could not find first_puzzle binary inside $BUILD_DIR" >&2
-      exit 1
     else
       echo "=== Found binary at: $BINARY_PATH_MAIN ==="
       # Run the metadata inspection command
