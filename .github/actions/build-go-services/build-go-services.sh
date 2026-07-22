@@ -1,3 +1,8 @@
+if [[ -n "$GOAMD64" && "$GOAMD64" != "v1" && "$GOAMD64" != "v2" && "$GOAMD64" != "v3" && "$GOAMD64" != "v4" ]]; then
+  echo "Invalid GOAMD64='$GOAMD64'. Must be v1, v2, v3, or v4." >&2
+  exit 1
+fi
+
 CMD_DIRS=$(find . -name "cmd" -type d)
 WD=$(pwd)
 while IFS= read -r line; do
